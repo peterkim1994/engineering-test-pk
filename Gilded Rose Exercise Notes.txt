@@ -1,0 +1,29 @@
+Assumptions:
+* Small Inn so number of items is assumed to be <200, currently they have around ~100
+* Items with special categories will have the special category at the start of the item name 
+* Original logic in code is all correct
+* Future developers will work on this system
+* Conjured items do not appreciate twice as fast, ie conjured aged brie should remain unchanged
+* Out of ~100 items currently only three have special rules. However, all three have rules that could easily be applied to new items in the future.
+* Possibility of 0-3 more item categories being added in the next couple years.
+* The code will/does have to be updated somewhat often since special rules can only be applied by checking the item name, which would differ for each event tickets are sold for.
+
+Analysis notes:
+* If you only had the code logic to go by, it's possible to interpret the rules differently to what was stated in the read me.
+
+Considerations:
+* Order of operations / priority of rules, since different rules for different item categories can stack.
+* Readability and maintainability is the highest priority, complexity added from unnecessary abstraction and performance gains will be liabilities 
+* Items can increment, decrease or have no change in quality in varying amounts (depending on the item type(s), sell in date, current quality)
+
+Rating Rule Types
+* Appreciating items with a deadline 
+* Infinitely appreciating assets
+* Items which will always have a constant quality
+* Items where the appreciation rate varies depending on the sell in date
+
+Initial Planned Approach:
+* Create unit tests for UpdateQuality() & current behaviour (Will use AI to save time)
+* Create new Class representing Item so we have more liberty over it. (Map back to new Items to return sp that were not constantly updating everything by state.)
+* Create Enum/Dictionaries for main Item quality rating rule and item names
+* Determine rating rule to use, then use appropriate rater to update item
