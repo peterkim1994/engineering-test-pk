@@ -1,32 +1,75 @@
+using GildedRose.Console;
+using GildedRose.Console.Types;
 using Xunit;
 
 namespace GildedRose.Tests;
 
 public class ProgramTests
 {
-    [Fact] public void UpdateQuality_MixedItemTypes_UpdatesQualityDependingOnItemType()
+    [Fact]
+    public void UpdateQuality_MixedItemTypes_UpdatesQualityDependingOnItemType()
     {
-        Assert.True(true);
+        var app = new Program
+        {
+            Items = new List<Item>
+            {
+                ItemFixtures.DexterityVest(sellIn: 10, quality: 20),
+                ItemFixtures.AgedBrie(sellIn: 10, quality: 20),
+                ItemFixtures.ElixirOfTheMongoose(sellIn: 10, quality: 20),
+                ItemFixtures.Sulfuras(sellIn: 10),
+                ItemFixtures.BackstagePasses(sellIn: 10, quality: 20)
+            }
+        };
+
+        app.UpdateQuality();
+
+        Assert.Equal(19, app.Items[0].Quality);
+        Assert.Equal(9, app.Items[0].SellIn);
+
+        Assert.Equal(21, app.Items[1].Quality);
+        Assert.Equal(9, app.Items[1].SellIn);
+
+        Assert.Equal(19, app.Items[2].Quality);
+        Assert.Equal(9, app.Items[2].SellIn);
+
+        Assert.Equal(ItemConstants.LegendaryCardQualityRating, app.Items[3].Quality);
+        Assert.Equal(10, app.Items[3].SellIn);
+
+        Assert.Equal(22, app.Items[4].Quality);
+        Assert.Equal(9, app.Items[4].SellIn);
     }
-    
-    [Fact] public void UpdateQuality_MixedConjuredItemTypes_UpdatesQualityDependingOnItemType()
+
+    [Fact]
+    public void UpdateQuality_MixedConjuredItemTypes_UpdatesQualityDependingOnItemType()
     {
-        Assert.True(true);
-    }
+        var app = new Program
+        {
+            Items = new List<Item>
+            {
+                ItemFixtures.ConjuredDexterityVest(sellIn: 10, quality: 40),
+                ItemFixtures.ConjuredAgedBrie(sellIn: 10, quality: 40),
+                ItemFixtures.ConjuredElixirOfTheMongoose(sellIn: 10, quality: 40),
+                ItemFixtures.ConjuredSulfuras(sellIn: 10),
+                ItemFixtures.ConjuredBackstagePasses(sellIn: 10, quality: 40)
+            }
+        };
+
+        app.UpdateQuality();
+
+        Assert.Equal(38, app.Items[0].Quality);
+        Assert.Equal(9, app.Items[0].SellIn);
+
+        Assert.Equal(42, app.Items[1].Quality);
+        Assert.Equal(9, app.Items[1].SellIn);
+
+        Assert.Equal(38, app.Items[2].Quality);
+        Assert.Equal(9, app.Items[2].SellIn);
+
+        Assert.Equal(ItemConstants.LegendaryCardQualityRating, app.Items[3].Quality);
+        Assert.Equal(10, app.Items[3].SellIn);
     
-    [Fact] public void UpdateQuality_StandardItemsWithZeroQuality_DoesntDecreaseQuality()
-    {
-        Assert.True(true);
-    }
-    
-    [Fact] public void UpdateQuality_StandardItemsGoingOverSellInDate_DecreasesQualityDoubleTheRate()
-    {
-        Assert.True(true);
-    }
-    
-    [Theory]
-    public void UpdateQuality_FutureEvent_DecreasesQualityAmountBasedOnSellInDate()
-    {
-        Assert.True(true);
+        // conjured tickets do not appreciate twice at twice the rate.
+        Assert.Equal(42, app.Items[4].Quality);
+        Assert.Equal(9, app.Items[4].SellIn);
     }
 }
