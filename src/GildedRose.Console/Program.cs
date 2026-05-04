@@ -1,5 +1,5 @@
 ﻿namespace GildedRose.Console;
-﻿using GildedRose.Console.ItemUpdaters;
+using GildedRose.Console.ItemUpdaters;
 
 public class Program
 {
@@ -34,11 +34,16 @@ public class Program
 
     public void UpdateQuality()
     {
-        var itemUpdater = new ItemUpdater();
+        var degradingQualityUpdater = new ItemQualityDegrader();
+        var itemUpdater = new ItemUpdater(
+            new EventTicketsQualityUpdater(),
+            new ItemQualityAppreciater(),
+            new ConjuredItemQualityUpdater(degradingQualityUpdater),
+            defaultUpdater: degradingQualityUpdater);
+        
         foreach (var item in Items)
         {
             itemUpdater.UpdateItem(item);
-            System.Console.WriteLine($"{item.Name} sellin: {item.SellIn}  quality: {item.Quality}");
         }
     }
 }

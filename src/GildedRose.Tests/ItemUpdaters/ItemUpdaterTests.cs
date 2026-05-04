@@ -6,7 +6,11 @@ namespace GildedRose.Tests.ItemUpdaters;
 
 public class ItemUpdaterTests
 {
-    private readonly ItemUpdater _updater = new();
+    private readonly ItemUpdater _updater = new(
+        new EventTicketsQualityUpdater(),
+        new ItemQualityAppreciater(),
+        new ConjuredItemQualityUpdater(new ItemQualityDegrader()),
+        new ItemQualityDegrader());
     
     [Fact]
     public void UpdateItem_QualityChangingItem_UpdatesItemSellByDate()
@@ -41,7 +45,7 @@ public class ItemUpdaterTests
     [Fact]
     public void UpdateItem_ConjuredDegradingItem_ItemQualityDegradesDoubleTheRate()
     {
-        var item = ItemFixtures.ConjuredDexterityVest(sellIn: 0, quality: 10);
+        var item = ItemFixtures.ConjuredManaCake(sellIn: 0, quality: 10);
 
         _updater.UpdateItem(item);
 

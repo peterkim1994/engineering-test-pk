@@ -1,6 +1,10 @@
 namespace GildedRose.Console.ItemUpdaters;
 
-public class ItemUpdater
+public class ItemUpdater(
+    IItemQualityUpdater eventTicketUpdater,
+    IItemQualityUpdater appreciatingUpdater,
+    IItemQualityUpdater conjuredUpdater,
+    IItemQualityUpdater defaultUpdater)
 {
     private static readonly IReadOnlyList<string> AppreciatingQualityItemNames = new List<string>()
     {
@@ -39,21 +43,21 @@ public class ItemUpdater
         bool isEventTicket = EventTicketItemNames.Contains(itemName);
         if (isEventTicket)
         {
-            return new EventTicketsQualityUpdater();
+            return eventTicketUpdater;
         }
         
         bool itemAppreciatesInQuality = AppreciatingQualityItemNames.Contains(itemName);
         if (itemAppreciatesInQuality)
         {
-            return new ItemQualityAppreciater();
+            return appreciatingUpdater;
         }
 
         bool isConjuredItem = itemName.StartsWith("Conjured ");
         if (isConjuredItem)
         {
-            return new ConjuredItemQualityUpdater(new ItemQualityDegrader());
+            return conjuredUpdater;
         }
-        
-        return new ItemQualityDegrader();
+
+        return defaultUpdater;
     }
 }
