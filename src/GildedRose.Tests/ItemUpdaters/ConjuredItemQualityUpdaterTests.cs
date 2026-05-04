@@ -10,7 +10,7 @@ public class ConjuredItemQualityUpdaterTests
     [Fact]
     public void UpdateItemQuality_ConjuredDegradingItemNotPassedSellByDate_ItemQualityDegradesDoubleTheRate()
     {
-        var item = ItemFixtures.ConjuredDexterityVest(sellIn: 5, quality: 10);
+        var item = ItemFixtures.ConjuredManaCake(sellIn: 5, quality: 10);
 
         _updater.UpdateItemQuality(item);
 
@@ -20,7 +20,7 @@ public class ConjuredItemQualityUpdaterTests
     [Fact]
     public void UpdateItemQuality_ConjuredDegradingItemPassedSellByDate_ItemQualityDegradesDoubleTheRate()
     {
-        var item = ItemFixtures.ConjuredDexterityVest(sellIn: -1, quality: 10);
+        var item = ItemFixtures.ConjuredManaCake(sellIn: -1, quality: 10);
 
         _updater.UpdateItemQuality(item);
 

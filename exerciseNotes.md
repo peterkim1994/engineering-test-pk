@@ -5,7 +5,7 @@
 - Items with special categories will have the special category at the start of the item name
 - Original logic in code is all correct. Ie if the code has business logic that the rules don't then it still valid and needs to be replicated. 
 - In the future other developers will update and maintain this system
-- Conjured items do not appreciate twice as fast, ie conjured aged brie should remain unchanged
+- Conjured items do not appreciate twice as fast, ie If the new supplier supplies conjured aged brie it will not increase in value.
 - **Out of ~100 items currently only three need special rules applied.** However, all three existing rules could be applied to new items in the future.
 - Possibility of 0-3 more item categories being added in the next year or two.
 - The code will/does have to be updated somewhat often since special rules can only be applied by checking the item name. 
@@ -41,3 +41,4 @@ to account for this would be premature over-engineering.
 ## Generative AI usage
 - Item fixtures
 - Unit tests (was guided from a high level, and I did have to update some of them manually).
+- Updated ItemUpdater and its usages to accept IItemQualityUpdater dependencies via the constructor
