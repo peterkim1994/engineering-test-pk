@@ -1,9 +1,9 @@
 using GildedRose.Console;
-using GildedRose.Console.Constants;
+using GildedRose.Console.Types;
 
 namespace GildedRose.Tests;
 
-public class ItemFixtures
+public static class ItemFixtures
 {
     public static Item DexterityVest(int sellIn = 10, int quality = 20) =>
         new() { Name = "+5 Dexterity Vest", SellIn = sellIn, Quality = quality };
@@ -34,28 +34,4 @@ public class ItemFixtures
 
     public static Item ConjuredBackstagePasses(int sellIn = 15, int quality = 20) =>
         new() { Name = "Conjured Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = quality };
-
-    public static class NonConjured
-    {
-        public static IList<Item> Items(int sellIn = 10, int quality = 20) => new List<Item>
-        {
-            DexterityVest(sellIn, quality),
-            AgedBrie(sellIn, quality),
-            ElixirOfTheMongoose(sellIn, quality),
-            Sulfuras(sellIn, quality),
-            BackstagePasses(sellIn, quality)
-        };
-    }
-
-    public static class Conjured
-    {
-        public static IList<Item> Items(int sellIn = 10, int quality = 40) => new List<Item>
-        {
-            ConjuredDexterityVest(sellIn, quality),
-            ConjuredAgedBrie(sellIn, quality),
-            ConjuredElixirOfTheMongoose(sellIn, quality),
-            ConjuredSulfuras(sellIn),
-            ConjuredBackstagePasses(sellIn, quality)
-        };
-    }
 }
