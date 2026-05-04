@@ -1,6 +1,6 @@
-namespace GildedRose.Console.Constants;
+namespace GildedRose.Console.Types;
 
-public class ItemConstants
+public static class ItemConstants
 {
     public const int StandardQualityLimit = 50;
     
