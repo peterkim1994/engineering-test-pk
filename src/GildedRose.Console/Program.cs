@@ -1,5 +1,5 @@
 ﻿namespace GildedRose.Console;
-using GildedRose.Console.ItemUpdaters;
+using ItemUpdaters;
 
 public class Program
 {
@@ -39,7 +39,7 @@ public class Program
             new EventTicketsQualityUpdater(),
             new ItemQualityAppreciater(),
             new ConjuredItemQualityUpdater(degradingQualityUpdater),
-            defaultUpdater: degradingQualityUpdater);
+            degradingQualityUpdater);
         
         foreach (var item in Items)
         {
